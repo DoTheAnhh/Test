@@ -22,6 +22,4 @@ public class UserRole {
     @ManyToOne
     @JoinColumn(name = "roleId")
     private Role role;
-
-    private boolean status;
 }

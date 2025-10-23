@@ -17,17 +17,6 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
 
     boolean existsByCode(String code);
 
-    Optional<User> findByCode(String code);
-
-    @Query("""
-        SELECT DISTINCT u
-        FROM User u
-        LEFT JOIN FETCH u.userRoles ur
-        LEFT JOIN FETCH ur.role r
-        WHERE u.code = :code
-    """)
-    Optional<User> findByCodeWithRoles(@Param("code") String code);
-
     @Query("""
         SELECT DISTINCT p
         FROM User u
@@ -35,9 +24,9 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
         JOIN ur.role r
         JOIN r.rolePermissions rp
         JOIN rp.permission p
-        WHERE u.code = :code
-        AND ur.status = true
-        AND rp.status = true
+        WHERE u.username = :username
     """)
-    List<Permission> findUserPermissions(@Param("code") String code);
+    List<Permission> findUserPermissions(@Param("username") String username);
+
+    Optional<User> findByUsername(String username);
 }

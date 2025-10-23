@@ -25,6 +25,4 @@ public class RolePermission {
     @ManyToOne
     @JoinColumn(name = "permissionId")
     private Permission permission;
-
-    private boolean status;
 }
