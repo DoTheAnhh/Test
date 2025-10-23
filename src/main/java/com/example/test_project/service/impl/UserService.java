@@ -50,7 +50,6 @@ public class UserService implements IUserService {
                     urRes.setId(ur.getRole().getId());
                     urRes.setRoleCode(ur.getRole().getCode());
                     urRes.setRoleName(ur.getRole().getName());
-                    urRes.setStatus(ur.isStatus() ? "Hoạt động" : "Không hoạt động");
                     return urRes;
                 }).toList();
                 response.setUserRoles(userRoles);
@@ -76,7 +75,6 @@ public class UserService implements IUserService {
                 urRes.setId(ur.getRole().getId());
                 urRes.setRoleCode(ur.getRole().getCode());
                 urRes.setRoleName(ur.getRole().getName());
-                urRes.setStatus(ur.isStatus() ? "Hoạt động" : "Không hoạt động");
                 return urRes;
             }).toList();
             response.setUserRoles(userRoles);
@@ -105,7 +103,6 @@ public class UserService implements IUserService {
             urRes.setId(ur.getRole().getId());
             urRes.setRoleCode(ur.getRole().getCode());
             urRes.setRoleName(ur.getRole().getName());
-            urRes.setStatus(ur.isStatus() ? "Hoạt động" : "Không hoạt động");
             return urRes;
         }).toList());
 
@@ -134,7 +131,6 @@ public class UserService implements IUserService {
             urRes.setId(ur.getRole().getId());
             urRes.setRoleCode(ur.getRole().getCode());
             urRes.setRoleName(ur.getRole().getName());
-            urRes.setStatus(ur.isStatus() ? "Hoạt động" : "Không hoạt động");
             return urRes;
         }).toList());
 
@@ -150,8 +146,6 @@ public class UserService implements IUserService {
             Role role = roleRepository.findById(urReq.getRoleId())
                     .orElseThrow(() -> new RuntimeException("Role không tồn tại: " + urReq.getRoleId()));
             ur.setRole(role);
-
-            ur.setStatus(urReq.isStatus());
 
             return ur;
         }).toList();

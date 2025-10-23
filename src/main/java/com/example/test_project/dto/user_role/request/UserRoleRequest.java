@@ -8,6 +8,4 @@ import lombok.Setter;
 public class UserRoleRequest {
 
     private Long roleId;
-
-    private boolean status;
 }

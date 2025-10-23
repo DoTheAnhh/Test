@@ -1,7 +1,10 @@
 package com.example.test_project.entity;
 
 import com.example.test_project.entity.base.BaseEntity;
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,12 +17,13 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "role")
-public class Role extends BaseEntity {
+@Table(name = "permission")
+public class Permission extends BaseEntity {
 
-    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
-    private List<UserRole> userRoles;
+    private String apiPath;
 
-    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
+    private String httpMethod;
+
+    @OneToMany(mappedBy = "permission", fetch = FetchType.LAZY)
     private List<RolePermission> rolePermissions;
 }

@@ -1,10 +1,12 @@
-package com.example.test_project.entity.sub;
+package com.example.test_project.entity.base;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import lombok.*;
+
+import java.time.LocalDateTime;
 
 @MappedSuperclass
 @Getter
@@ -15,11 +17,17 @@ public class BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    public Long id;
+    private Long id;
 
-    public String code;
+    private String code;
 
-    public String name;
+    private String name;
 
-    public boolean status;
+    private LocalDateTime createdAt = LocalDateTime.now();
+
+    private LocalDateTime  updatedAt;
+
+    private LocalDateTime  deletedAt;
+
+    private String description;
 }

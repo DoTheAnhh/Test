@@ -10,5 +10,4 @@ public class UserRoleResponse {
     private Long id;
     private String roleCode;
     private String roleName;
-    private String status;
 }

@@ -10,11 +10,11 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserResponse {
-    public Long id;
+    private Long id;
 
-    public String code;
+    private String code;
 
-    public String name;
+    private String name;
 
-    public List<UserRoleResponse> userRoles;
+    private List<UserRoleResponse> userRoles;
 }
