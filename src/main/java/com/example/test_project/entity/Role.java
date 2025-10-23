@@ -14,9 +14,9 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-@Table(name = "user")
-public class User extends BaseEntity {
+@Table(name = "role")
+public class Role extends BaseEntity {
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY)
     private List<UserRole> userRoles;
 }
