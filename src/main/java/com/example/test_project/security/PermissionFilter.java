@@ -48,7 +48,7 @@ public class PermissionFilter extends OncePerRequestFilter {
             response.getWriter().write("""
                 {
                   "success": false,
-                  "message": "Bạn không có quyền truy cập API này"
+                  "message": "Bạn không có quyền truy cập"
                 }
             """);
             return;
