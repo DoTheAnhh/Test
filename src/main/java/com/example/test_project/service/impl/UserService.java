@@ -9,6 +9,7 @@ import com.example.test_project.entity.Role;
 import com.example.test_project.entity.User;
 import com.example.test_project.common.ApiResponse;
 import com.example.test_project.entity.UserRole;
+import com.example.test_project.exception.ValidationException;
 import com.example.test_project.repository.RoleRepository;
 import com.example.test_project.util.DynamicFilter;
 import com.example.test_project.util.SpecificationBuilder;
@@ -18,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -157,33 +159,28 @@ public class UserService implements IUserService {
     }
 
     private void validateUserRequest(UserRequest request) {
+        Map<String, String> errors = new HashMap<>();
 
         if (request.getCode() == null || request.getCode().isBlank()) {
-            throw new RuntimeException("Không được để trống");
+            errors.put("code", "Không được để trống");
         }
 
         if (request.getName() == null || request.getName().isBlank()) {
-            throw new RuntimeException("Không được để trống");
-        }
-
-        boolean codeExists = userRepository.existsByCode((request.getCode()));
-        if (codeExists) {
-            throw new RuntimeException("Mã đã tồn tại");
-        }
-
-        boolean nameExists = userRepository.existsByName((request.getName()));
-        if (nameExists) {
-            throw new RuntimeException("Tên đã tồn tại");
+            errors.put("name", "Không được để trống");
         }
 
         if (request.getUserRoles() == null || request.getUserRoles().isEmpty()) {
-            throw new RuntimeException("Không được để trống");
+            errors.put("userRoles", "Không được để trống");
+        } else {
+            for (int i = 0; i < request.getUserRoles().size(); i++) {
+                if (request.getUserRoles().get(i).getRoleId() == null) {
+                    errors.put("userRoles[" + i + "].roleId", "Không được để trống");
+                }
+            }
         }
 
-        request.getUserRoles().forEach(ur -> {
-            if (ur.getRoleId() == null) {
-                throw new RuntimeException("Không được để trống");
-            }
-        });
+        if (!errors.isEmpty()) {
+            throw new ValidationException(errors);
+        }
     }
 }

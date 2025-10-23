@@ -31,5 +31,10 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiResponse<Object>> handleAllExceptions(Exception ex) {
         return ResponseEntity.internalServerError().body(ApiResponse.error(ex.getMessage()));
     }
+
+    @ExceptionHandler(ValidationException.class)
+    public ResponseEntity<ApiResponse<Object>> handleCustomValidationException(ValidationException ex) {
+        return ResponseEntity.badRequest().body(ApiResponse.error("Validation failed", ex.getErrors()));
+    }
 }
 
